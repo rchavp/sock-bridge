@@ -1,0 +1,26 @@
+{
+  "name": "node-https",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start-linux": "clear && rm -rf dist && tsc --resolveJsonModule && bin/node-linux dist/src/app.js",
+    "start-mac": "clear && rm -rf dist && tsc --resolveJsonModule && bin/node-mac dist/src/app.js",
+    "start": "clear && npx nodemon --watch . --exec ts-node src/app.ts",
+    "build": "tsc",
+    "lbuild": "tslint ./src/* && tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.0.1",
+    "ts-node": "^8.10.1",
+    "tslint": "^6.1.2",
+    "typescript": "^3.9.2"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "colors": "^1.4.0"
+  }
+}

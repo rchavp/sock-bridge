@@ -1,0 +1,10 @@
+{
+  "Control_Port": 4241,
+  "Plain_Port": 4242,
+  "Tls_Port": 4243,
+  "Remote_Addr_IP": "52.50.108.226",
+  "Intercepted_Apps": [
+    "BranchManager",
+    "Configurator"
+  ]
+}
