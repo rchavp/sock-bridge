@@ -15,15 +15,30 @@ try {
   error("Could not read from configuration file. Exiting process.")
   process.exit(-1)
 }
+const envPlainPort = process.env.PLAIN_PORT
+const envTlsPort = process.env.TLS_PORT
+if (envPlainPort) {
+  log(`Plain Port config value (${config.Plain_Port}) replaced by provided env value (${envPlainPort})`)
+  config.Plain_Port = envPlainPort
+}
+if (envTlsPort) {
+  log(`Tls Port config value (${config.Tls_Port}) replaced by provided env value (${envTlsPort})`)
+  config.Tls_Port = envTlsPort
+}
+const REMOTE_IP = process.env.REMOTE_IP
+if (!REMOTE_IP) {
+  error('No remote IP was provided to the app. Exiting.')
+  process.exit(-1)
+}
 
 log('Config loaded\n', config)
 SocketMux.config = config
 
+log('Remote IP:', REMOTE_IP)
 
 const CNTRL_PORT: number = config.Control_Port
 const PLAIN_PORT: number = config.Plain_Port
 const TLS_PORT: number   = config.Tls_Port
-const REMOTE_ADDR: string = config.Remote_Addr_IP
 const APP_PATH: string = process.cwd()
 
 log('WORKING DIR:', APP_PATH)
@@ -34,7 +49,7 @@ log('WORKING DIR:', APP_PATH)
 const plainServer = net.createServer(async (conSock: Socket) => {
   log('client connected to PLAIN port')
 
-  const mux = new SocketMux(conSock, REMOTE_ADDR, 'localhost')
+  const mux = new SocketMux(conSock, REMOTE_IP, config.Local_Addr)
   const initialized = await mux.init()
 
   if (!initialized) {
@@ -74,7 +89,7 @@ const options = {
 
 const tlsServer = tls.createServer(options, async (tlsSock: TLSSocket) => {
   try {
-    const mux = new SocketMux(tlsSock, REMOTE_ADDR, 'localhost')
+    const mux = new SocketMux(tlsSock, REMOTE_IP, config.Local_Addr)
     const initialized = await mux.init()
 
     if (!initialized) {

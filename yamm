@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Starting YAMM tool. Sudo permissions are required to setup the network."
+echo "NOTE: All changes will be undone once the tool exits"
+sudo bash -c "./multi-platform.sh"

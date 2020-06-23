@@ -9,7 +9,8 @@ type Config = {
   Control_Port: number;
   Plain_Port: number;
   Tls_Port: number;
-  Remote_Addr_IP: string;
+  Remote_Addr: string;
+  Local_Addr: string;
   Intercepted_Apps: Array<string>
 }
 
@@ -47,6 +48,8 @@ const getConn = (url: string): Promise<Socket> => new Promise((resolve, reject) 
 
 let GID: number = 0
 
+
+/////////////////////////////// MAIN CLASS ////////////////////////////////
 export class SocketMux {
 
   static floatingThingy: string = `<div id="yamm-main-div" ondblclick="document.querySelector('#yamm-main-div').remove()">
@@ -183,10 +186,10 @@ function yamm_draggable(elmnt) { var w = window.screen.width; elmnt.style.left =
       /* error('MATCHOUT2!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', matchOut) */
       /* error('MATCHOUT3!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', data.toString()) */
       if (matchOut) {
-        error(this.ID, '********* MUX criteria matched. Redirecting to OUT2 ********')
+        plain(this.ID, '********* MUX criteria matched. Redirecting to OUT2 ********')
         debug('Matched:', matchOut[0])
       } else {
-        error(this.ID, '********* MUX criteria NOT matched ********')
+        plain(this.ID, '********* MUX criteria NOT matched ********')
       }
       return matchOut ? 2 : 1
     }

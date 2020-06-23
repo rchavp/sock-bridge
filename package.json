@@ -7,8 +7,8 @@
     "start-linux": "clear && rm -rf dist && tsc --resolveJsonModule && bin/node-linux dist/src/app.js",
     "start-mac": "clear && rm -rf dist && tsc --resolveJsonModule && bin/node-mac dist/src/app.js",
     "start": "clear && npx nodemon --watch . --exec ts-node src/app.ts",
-    "build": "tsc",
-    "lbuild": "tslint ./src/* && tsc",
+    "build": "rm -rf dist && tsc --resolveJsonModule && cp -r certs bin multi-platform.sh yamm dist",
+    "lbuild": "tslint ./src/* && tsc --resolveJsonModule",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
